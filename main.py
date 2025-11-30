@@ -1,15 +1,16 @@
-import numpy as np
+"""Fast api app."""
 
-"""Working with Docker - The basics."""
+from datetime import datetime
 
-print("Hello world from Docker!")
+from fastapi import FastAPI
 
-a = np.array([[1, 2, 3], [4, 5, 6]])
+app = FastAPI()
 
-print(f"Shape of a: {a.shape}")
 
-print(dir(np))
+@app.get(path="/")
+def hello() -> dict[str, str]:
+    now: datetime = datetime.now()
+    return {"Hello": now.strftime(format=r"%d/%m/%Y, %H:%M:%S")}
 
-# 1. make a Dockerfile
-# 2. Docker build
-# 3. Docker run
+
+# uvicorn main: app
